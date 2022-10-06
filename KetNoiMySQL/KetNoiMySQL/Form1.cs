@@ -65,21 +65,28 @@ namespace KetNoiMySQL
 
         private void ThemButton_Click(object sender, EventArgs e)
         {
-            string query = string.Format("INSERT INTO student VALUES('{0}', '{1}', '{2}', '{3}')", MSSVTextBox.Text, HoVaTenTextBox.Text, LopTextBox.Text, GioiTinhTextBox.Text);
-            using (MySqlConnection con = new MySqlConnection(constr))
+            try
             {
-                con.Open();
-                MySqlCommand cmd = new MySqlCommand(query, con);
-                int result = cmd.ExecuteNonQuery();
-                if (result == 1)
+                string query = string.Format("INSERT INTO student VALUES('{0}', '{1}', '{2}', '{3}')", MSSVTextBox.Text, HoVaTenTextBox.Text, LopTextBox.Text, GioiTinhTextBox.Text);
+                using (MySqlConnection con = new MySqlConnection(constr))
                 {
-                    MessageBox.Show("Thêm thành công!");
-                    LoadKetNoi();
-                    MSSVTextBox.Clear();
-                    HoVaTenTextBox.Clear();
-                    LopTextBox.Clear();
-                    GioiTinhTextBox.Clear();
+                    con.Open();
+                    MySqlCommand cmd = new MySqlCommand(query, con);
+                    int result = cmd.ExecuteNonQuery();
+                    if (result == 1)
+                    {
+                        MessageBox.Show("Thêm thành công!");
+                        LoadKetNoi();
+                        MSSVTextBox.Clear();
+                        HoVaTenTextBox.Clear();
+                        LopTextBox.Clear();
+                        GioiTinhTextBox.Clear();
+                    }
                 }
+            }
+            catch (MySqlException err)
+            {
+                MessageBox.Show(err.ToString());
             }
         }
 
@@ -87,21 +94,28 @@ namespace KetNoiMySQL
 
         private void SuaButton_Click(object sender, EventArgs e)
         {
-            string query = string.Format("UPDATE student SET MSSV = '{0}', hovaten = '{1}', lop = '{2}', gioitinh = '{3}' WHERE MSSV = {4}", MSSVTextBox.Text, HoVaTenTextBox.Text, LopTextBox.Text, GioiTinhTextBox.Text, id);
-            using (MySqlConnection con = new MySqlConnection(constr))
+            try
             {
-                con.Open();
-                MySqlCommand cmd = new MySqlCommand(query, con);
-                int result = cmd.ExecuteNonQuery();
-                if (result == 1)
+                string query = string.Format("UPDATE student SET MSSV = '{0}', hovaten = '{1}', lop = '{2}', gioitinh = '{3}' WHERE MSSV = {4}", MSSVTextBox.Text, HoVaTenTextBox.Text, LopTextBox.Text, GioiTinhTextBox.Text, id);
+                using (MySqlConnection con = new MySqlConnection(constr))
                 {
-                    MessageBox.Show("Sửa thành công!");
-                    LoadKetNoi();
-                    MSSVTextBox.Clear();
-                    HoVaTenTextBox.Clear();
-                    LopTextBox.Clear();
-                    GioiTinhTextBox.Clear();
+                    con.Open();
+                    MySqlCommand cmd = new MySqlCommand(query, con);
+                    int result = cmd.ExecuteNonQuery();
+                    if (result == 1)
+                    {
+                        MessageBox.Show("Sửa thành công!");
+                        LoadKetNoi();
+                        MSSVTextBox.Clear();
+                        HoVaTenTextBox.Clear();
+                        LopTextBox.Clear();
+                        GioiTinhTextBox.Clear();
+                    }
                 }
+            }
+            catch (MySqlException err)
+            {
+                MessageBox.Show(err.ToString());
             }
         }
 
@@ -119,21 +133,28 @@ namespace KetNoiMySQL
 
         private void XoaButton_Click(object sender, EventArgs e)
         {
-            string query = string.Format("DELETE FROM student WHERE MSSV = {0}", id);
-            using (MySqlConnection con = new MySqlConnection(constr))
+            try
             {
-                con.Open();
-                MySqlCommand cmd = new MySqlCommand(query, con);
-                int result = cmd.ExecuteNonQuery();
-                if (result == 1)
+                string query = string.Format("DELETE FROM student WHERE MSSV = {0}", id);
+                using (MySqlConnection con = new MySqlConnection(constr))
                 {
-                    MessageBox.Show("Xóa thành công!");
-                    LoadKetNoi();
-                    MSSVTextBox.Clear();
-                    HoVaTenTextBox.Clear();
-                    LopTextBox.Clear();
-                    GioiTinhTextBox.Clear();
+                    con.Open();
+                    MySqlCommand cmd = new MySqlCommand(query, con);
+                    int result = cmd.ExecuteNonQuery();
+                    if (result == 1)
+                    {
+                        MessageBox.Show("Xóa thành công!");
+                        LoadKetNoi();
+                        MSSVTextBox.Clear();
+                        HoVaTenTextBox.Clear();
+                        LopTextBox.Clear();
+                        GioiTinhTextBox.Clear();
+                    }
                 }
+            }
+            catch (MySqlException err)
+            {
+                MessageBox.Show(err.ToString());
             }
         }
 
@@ -142,6 +163,42 @@ namespace KetNoiMySQL
             foreach (DataGridViewRow row in dataGridView1.SelectedRows)
             {
                 id = row.Cells[0].Value.ToString();
+            }
+        }
+
+        private void CreateTableButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                MoKetNoi();
+                MySqlCommand cmd = new MySqlCommand(@"
+                CREATE TABLE `subject` 
+                (MMH INT NOT NULL AUTO_INCREMENT,
+                tenmonhoc VARCHAR(15) NOT NULL, 
+                PRIMARY KEY (MMH)) COLLATE='utf8_general_ci' ENGINE=InnoDB;", con);
+                cmd.ExecuteNonQuery();
+                DongKetNoi();
+            }
+            catch
+            {
+                MessageBox.Show("Lỗi!");
+            }
+        }
+
+        private void DeleteTableButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                MoKetNoi();
+                String cmdText = @"DROP TABLE IF EXISTS subject";
+                MySqlCommand cmd = new MySqlCommand(cmdText, con);
+                cmd.Prepare();
+                cmd.ExecuteNonQuery();
+                DongKetNoi();
+            }
+            catch (MySqlException err)
+            {
+                MessageBox.Show(err.ToString());
             }
         }
     }
