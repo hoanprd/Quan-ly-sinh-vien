@@ -53,8 +53,8 @@ namespace KetNoiMySQL
             this.SuaButton = new System.Windows.Forms.Button();
             this.XoaButton = new System.Windows.Forms.Button();
             this.ExitButton = new System.Windows.Forms.Button();
-            this.CreateTableButton = new System.Windows.Forms.Button();
-            this.DeleteTableButton = new System.Windows.Forms.Button();
+            this.CDTableTextBox = new System.Windows.Forms.TextBox();
+            this.CDTableButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -147,7 +147,7 @@ namespace KetNoiMySQL
             // LoadButton
             // 
             this.LoadButton.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LoadButton.Location = new System.Drawing.Point(1114, 468);
+            this.LoadButton.Location = new System.Drawing.Point(376, 219);
             this.LoadButton.Name = "LoadButton";
             this.LoadButton.Size = new System.Drawing.Size(148, 49);
             this.LoadButton.TabIndex = 9;
@@ -289,35 +289,32 @@ namespace KetNoiMySQL
             this.ExitButton.UseVisualStyleBackColor = true;
             this.ExitButton.Click += new System.EventHandler(this.ExitButton_Click);
             // 
-            // CreateTableButton
+            // CDTableTextBox
             // 
-            this.CreateTableButton.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CreateTableButton.Location = new System.Drawing.Point(550, 468);
-            this.CreateTableButton.Name = "CreateTableButton";
-            this.CreateTableButton.Size = new System.Drawing.Size(148, 49);
-            this.CreateTableButton.TabIndex = 24;
-            this.CreateTableButton.Text = "Create table";
-            this.CreateTableButton.UseVisualStyleBackColor = true;
-            this.CreateTableButton.Click += new System.EventHandler(this.CreateTableButton_Click);
+            this.CDTableTextBox.Location = new System.Drawing.Point(548, 453);
+            this.CDTableTextBox.Multiline = true;
+            this.CDTableTextBox.Name = "CDTableTextBox";
+            this.CDTableTextBox.Size = new System.Drawing.Size(714, 180);
+            this.CDTableTextBox.TabIndex = 26;
             // 
-            // DeleteTableButton
+            // CDTableButton
             // 
-            this.DeleteTableButton.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DeleteTableButton.Location = new System.Drawing.Point(704, 468);
-            this.DeleteTableButton.Name = "DeleteTableButton";
-            this.DeleteTableButton.Size = new System.Drawing.Size(148, 49);
-            this.DeleteTableButton.TabIndex = 25;
-            this.DeleteTableButton.Text = "Delete table";
-            this.DeleteTableButton.UseVisualStyleBackColor = true;
-            this.DeleteTableButton.Click += new System.EventHandler(this.DeleteTableButton_Click);
+            this.CDTableButton.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CDTableButton.Location = new System.Drawing.Point(12, 584);
+            this.CDTableButton.Name = "CDTableButton";
+            this.CDTableButton.Size = new System.Drawing.Size(512, 49);
+            this.CDTableButton.TabIndex = 27;
+            this.CDTableButton.Text = "Create/Delete table";
+            this.CDTableButton.UseVisualStyleBackColor = true;
+            this.CDTableButton.Click += new System.EventHandler(this.CDTableButton_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1274, 530);
-            this.Controls.Add(this.DeleteTableButton);
-            this.Controls.Add(this.CreateTableButton);
+            this.ClientSize = new System.Drawing.Size(1274, 645);
+            this.Controls.Add(this.CDTableButton);
+            this.Controls.Add(this.CDTableTextBox);
             this.Controls.Add(this.ExitButton);
             this.Controls.Add(this.XoaButton);
             this.Controls.Add(this.SuaButton);
@@ -376,8 +373,8 @@ namespace KetNoiMySQL
         private System.Windows.Forms.Button SuaButton;
         private System.Windows.Forms.Button XoaButton;
         private System.Windows.Forms.Button ExitButton;
-        private System.Windows.Forms.Button CreateTableButton;
-        private System.Windows.Forms.Button DeleteTableButton;
+        private System.Windows.Forms.TextBox CDTableTextBox;
+        private System.Windows.Forms.Button CDTableButton;
     }
 }
 

@@ -14,6 +14,7 @@ namespace KetNoiMySQL
     public partial class Form1 : Form
     {
         string constr;
+        bool IsLoaded;
         MySqlConnection con;
         MySqlCommand cmd;
         MySqlDataAdapter adt;
@@ -51,10 +52,12 @@ namespace KetNoiMySQL
             try
             {
                 LoadKetNoi();
+                IsLoaded = true;
             }
             catch
             {
-                MessageBox.Show("Lỗi thông tin!");
+                DongKetNoi();
+                MessageBox.Show("Lỗi thông tin đăng nhập hoặc kết nối server!");
             }
         }
 
@@ -166,39 +169,33 @@ namespace KetNoiMySQL
             }
         }
 
-        private void CreateTableButton_Click(object sender, EventArgs e)
+        private void CDTableButton_Click(object sender, EventArgs e)
         {
             try
             {
-                MoKetNoi();
-                MySqlCommand cmd = new MySqlCommand(@"
-                CREATE TABLE `subject` 
-                (MMH INT NOT NULL AUTO_INCREMENT,
-                tenmonhoc VARCHAR(15) NOT NULL, 
-                PRIMARY KEY (MMH)) COLLATE='utf8_general_ci' ENGINE=InnoDB;", con);
-                cmd.ExecuteNonQuery();
-                DongKetNoi();
+                if (IsLoaded == true)
+                {
+                    MoKetNoi();
+                    String cmdText = CDTableTextBox.Text;
+                    /*MySqlCommand cmd = new MySqlCommand(@"
+                    CREATE TABLE `subject` 
+                    (MMH INT NOT NULL AUTO_INCREMENT,
+                    tenmonhoc VARCHAR(15) NOT NULL, 
+                    PRIMARY KEY (MMH)) COLLATE='utf8_general_ci' ENGINE=InnoDB;", con);
+                    String cmdText = @"DROP TABLE IF EXISTS subject";*/
+                    MySqlCommand cmd = new MySqlCommand(cmdText, con);
+                    cmd.ExecuteNonQuery();
+                    DongKetNoi();
+
+                    MessageBox.Show("Xong!");
+                }
+                else
+                    MessageBox.Show("Lỗi cũ pháp hoặc table đã/chưa tồn tại!");
             }
             catch
             {
-                MessageBox.Show("Lỗi!");
-            }
-        }
-
-        private void DeleteTableButton_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                MoKetNoi();
-                String cmdText = @"DROP TABLE IF EXISTS subject";
-                MySqlCommand cmd = new MySqlCommand(cmdText, con);
-                cmd.Prepare();
-                cmd.ExecuteNonQuery();
                 DongKetNoi();
-            }
-            catch (MySqlException err)
-            {
-                MessageBox.Show(err.ToString());
+                MessageBox.Show("Lỗi cũ pháp hoặc table đã/chưa tồn tại!");
             }
         }
     }
